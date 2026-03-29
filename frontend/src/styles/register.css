@@ -1,0 +1,92 @@
+.register-container {
+  width: min(380px, 90vw);
+  padding: 22px;
+  background: var(--surface-strong);
+  border: 1px solid var(--brand-grad-mid);
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(120%);
+  height: fit-content;
+}
+.register-container input {
+  width: 90%;
+  margin: 10px auto;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--brand-grad-mid);
+  background: var(--surface-alt);
+  color: var(--text-primary);
+}
+.register-container input::placeholder {
+  color: var(--text-muted);
+}
+.register-container button {
+  width: 95%;
+  margin-top: 10px;
+  border: 1px solid #ffffff;
+  background: linear-gradient(90deg, var(--brand-grad-start) 0%, var(--brand-grad-mid) 45%, var(--brand-grad-end) 100%);
+  color: #ffffff;
+}
+
+.register-role-toggle {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px auto 0;
+}
+
+.register-role-toggle button {
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--text-primary);
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.register-role-toggle button:hover {
+  color: #ffffff;
+  background: linear-gradient(90deg, var(--brand-grad-start) 0%, var(--brand-grad-mid) 45%, var(--brand-grad-end) 100%);
+}
+
+.register-role-toggle button.active {
+  background: linear-gradient(90deg, var(--brand-grad-start) 0%, var(--brand-grad-mid) 45%, var(--brand-grad-end) 100%);
+  color: #ffffff;
+  border-color: rgba(var(--accent-rgb), 0.4);
+}
+.error {
+  color: #b91c1c;
+  font-size: 14px;
+}
+.switch-auth span {
+  color: var(--brand-grad-mid);
+  cursor: pointer;
+}
+.switch-auth span:hover {
+  text-decoration: underline;
+}
+
+.switch-auth.back-home {
+  margin-top: 6px;
+}
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    var(--login-bg-image, none) center/cover no-repeat fixed,
+    radial-gradient(circle at 15% 18%, rgba(var(--bg-glow-2), 0.18), transparent 44%),
+    radial-gradient(circle at 84% 82%, rgba(var(--bg-glow-1), 0.2), transparent 48%),
+    linear-gradient(120deg, rgba(var(--bg-glow-1), 0.16), rgba(var(--bg-glow-2), 0.12), rgba(var(--bg-glow-3), 0.14));
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+
+

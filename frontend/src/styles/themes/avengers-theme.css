@@ -1,0 +1,35 @@
+:root[data-theme="avengers"] {
+  --theme-name: "avengers";
+  --text-primary: #2d1710;
+  --text-muted: #744b36;
+  --ink-rgb: 45, 23, 16;
+
+  --bg-1: #090b12;
+  --bg-2: #131b2a;
+  --bg-3: #260f0b;
+  --bg-glow-1: 214, 48, 49;
+  --bg-glow-2: 245, 158, 11;
+  --bg-glow-3: 59, 130, 246;
+
+  --surface: rgba(255, 244, 232, 0.74);
+  --surface-strong: rgba(255, 248, 238, 0.88);
+  --surface-alt: rgba(255, 252, 247, 0.94);
+
+  --accent-rgb: 214, 48, 49;
+  --accent-2-rgb: 59, 130, 246;
+  --gold-rgb: 245, 158, 11;
+
+  --brand-grad-start: #7a0f15;
+  --brand-grad-mid: #c0262d;
+  --brand-grad-end: #f59e0b;
+  --brand-grad-hover-start: #5f0b10;
+  --brand-grad-hover-mid: #a91f26;
+  --brand-grad-hover-end: #d97706;
+
+  --border-soft: rgba(214, 48, 49, 0.25);
+  --border-strong: rgba(214, 48, 49, 0.4);
+  --shadow-soft: 0 14px 28px rgba(3, 6, 18, 0.34);
+
+  --main-bg-image: url('https://i.imgflip.com/3di383.jpg');
+  --login-bg-image: url('https://i.imgflip.com/2zt0xo.png');
+}

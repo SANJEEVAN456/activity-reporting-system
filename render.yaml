@@ -1,0 +1,65 @@
+services:
+  - type: web
+    name: activity-system-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    disk:
+      name: uploads
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: https://activity-system-frontend.onrender.com
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DIRECT_URI
+        sync: false
+      - key: MONGO_DB
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_RESET_SECRET
+        generateValue: true
+      - key: ADMIN_REGISTER_CODE
+        generateValue: true
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: TRUST_PROXY
+        value: true
+      - key: JSON_BODY_LIMIT
+        value: 1mb
+      - key: AUTH_RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: AUTH_RATE_LIMIT_MAX
+        value: 20
+
+  - type: web
+    name: activity-system-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    autoDeployTrigger: commit
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://activity-system-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

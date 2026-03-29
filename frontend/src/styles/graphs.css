@@ -1,0 +1,67 @@
+.graphs {
+  background: var(--surface);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(var(--ink-rgb), 0.12);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  backdrop-filter: blur(10px) saturate(120%);
+  width: 100%;
+  box-sizing: border-box;
+  height: fit-content;
+}
+.graphs h3{
+    color: inherit;
+}
+h4 {
+  color: inherit;
+}
+
+.graphs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.graphs-toggle {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.graphs-toggle button {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  background: linear-gradient(90deg, var(--brand-grad-start) 0%, var(--brand-grad-mid) 45%, var(--brand-grad-end) 100%);
+  color: #f8fafc;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.graphs-toggle button.active {
+  background: linear-gradient(90deg, var(--brand-grad-hover-start) 0%, var(--brand-grad-mid) 55%, var(--brand-grad-hover-end) 100%);
+}
+
+.graph-canvas {
+  width: 100%;
+  height: 260px;
+}
+
+.graph-empty {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), 0.12);
+  border: 1px dashed rgba(var(--accent-rgb), 0.25);
+  color: var(--text-primary);
+}
+
+@media (min-width: 900px) {
+  .graph-canvas {
+    height: 300px;
+  }
+}
+
+

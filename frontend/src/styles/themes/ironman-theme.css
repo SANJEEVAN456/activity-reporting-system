@@ -1,0 +1,32 @@
+:root[data-theme="ironman"] {
+  --theme-name: "ironman";
+  --text-primary: #2a150f;
+  --text-muted: #6c4b3d;
+  --ink-rgb: 42, 21, 15;
+
+  --bg-1: #1a0b09;
+  --bg-2: #2f110d;
+  --bg-3: #160907;
+  --bg-glow-1: 193, 39, 45;
+  --bg-glow-2: 235, 171, 52;
+  --bg-glow-3: 130, 20, 14;
+
+  --surface: rgba(255, 244, 238, 0.64);
+  --surface-strong: rgba(255, 246, 240, 0.84);
+  --surface-alt: rgba(255, 250, 245, 0.92);
+
+  --accent-rgb: 193, 39, 45;
+  --accent-2-rgb: 235, 171, 52;
+  --gold-rgb: 235, 171, 52;
+
+  --brand-grad-start: #7f1218;
+  --brand-grad-mid: #b51f27;
+  --brand-grad-end: #ec9d2f;
+  --brand-grad-hover-start: #5e0c12;
+  --brand-grad-hover-mid: #9f1a21;
+  --brand-grad-hover-end: #cf7d1f;
+
+  --border-soft: rgba(193, 39, 45, 0.3);
+  --border-strong: rgba(193, 39, 45, 0.45);
+  --shadow-soft: 0 12px 24px rgba(42, 21, 15, 0.26);
+}

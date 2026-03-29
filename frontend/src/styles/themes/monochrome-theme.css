@@ -1,0 +1,32 @@
+:root[data-theme="monochrome"] {
+  --theme-name: "monochrome";
+  --text-primary: #1b1b1b;
+  --text-muted: #4d4d4d;
+  --ink-rgb: 27, 27, 27;
+
+  --bg-1: #f6f6f6;
+  --bg-2: #ececec;
+  --bg-3: #dddddd;
+  --bg-glow-1: 25, 25, 25;
+  --bg-glow-2: 150, 150, 150;
+  --bg-glow-3: 80, 80, 80;
+
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.9);
+  --surface-alt: rgba(248, 248, 248, 0.95);
+
+  --accent-rgb: 32, 32, 32;
+  --accent-2-rgb: 120, 120, 120;
+  --gold-rgb: 95, 95, 95;
+
+  --brand-grad-start: #111111;
+  --brand-grad-mid: #2e2e2e;
+  --brand-grad-end: #555555;
+  --brand-grad-hover-start: #000000;
+  --brand-grad-hover-mid: #202020;
+  --brand-grad-hover-end: #464646;
+
+  --border-soft: rgba(32, 32, 32, 0.24);
+  --border-strong: rgba(32, 32, 32, 0.36);
+  --shadow-soft: 0 12px 24px rgba(0, 0, 0, 0.16);
+}

@@ -1,0 +1,32 @@
+:root[data-theme="chotta-bheem"] {
+  --theme-name: "chotta-bheem";
+  --text-primary: #3a1f10;
+  --text-muted: #6a4627;
+  --ink-rgb: 58, 31, 16;
+
+  --bg-1: #fff3d6;
+  --bg-2: #ffd38f;
+  --bg-3: #ffb358;
+  --bg-glow-1: 239, 68, 68;
+  --bg-glow-2: 245, 158, 11;
+  --bg-glow-3: 34, 139, 34;
+
+  --surface: rgba(255, 250, 240, 0.72);
+  --surface-strong: rgba(255, 247, 232, 0.9);
+  --surface-alt: rgba(255, 252, 245, 0.95);
+
+  --accent-rgb: 220, 58, 35;
+  --accent-2-rgb: 245, 158, 11;
+  --gold-rgb: 245, 158, 11;
+
+  --brand-grad-start: #b91c1c;
+  --brand-grad-mid: #dc2626;
+  --brand-grad-end: #f59e0b;
+  --brand-grad-hover-start: #991b1b;
+  --brand-grad-hover-mid: #b91c1c;
+  --brand-grad-hover-end: #d97706;
+
+  --border-soft: rgba(220, 58, 35, 0.24);
+  --border-strong: rgba(220, 58, 35, 0.38);
+  --shadow-soft: 0 12px 24px rgba(122, 51, 15, 0.2);
+}

@@ -1,0 +1,32 @@
+:root[data-theme="dark"] {
+  --theme-name: "dark";
+  --text-primary: #e5e7eb;
+  --text-muted: #94a3b8;
+  --ink-rgb: 229, 231, 235;
+
+  --bg-1: #0b0f16;
+  --bg-2: #0f172a;
+  --bg-3: #111827;
+  --bg-glow-1: 30, 41, 59;
+  --bg-glow-2: 59, 73, 101;
+  --bg-glow-3: 45, 55, 72;
+
+  --surface: rgba(15, 23, 42, 0.74);
+  --surface-strong: rgba(15, 23, 42, 0.9);
+  --surface-alt: rgba(17, 24, 39, 0.92);
+
+  --accent-rgb: 148, 163, 184;
+  --accent-2-rgb: 203, 213, 225;
+  --gold-rgb: 245, 158, 11;
+
+  --brand-grad-start: #111827;
+  --brand-grad-mid: #1f2937;
+  --brand-grad-end: #334155;
+  --brand-grad-hover-start: #0b1220;
+  --brand-grad-hover-mid: #1f2937;
+  --brand-grad-hover-end: #2d3a50;
+
+  --border-soft: rgba(148, 163, 184, 0.22);
+  --border-strong: rgba(148, 163, 184, 0.36);
+  --shadow-soft: 0 16px 30px rgba(2, 6, 23, 0.4);
+}
