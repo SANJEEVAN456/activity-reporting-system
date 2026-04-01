@@ -8,13 +8,13 @@ const INVALID_EMAIL_MESSAGE = 'Username or email is incorrect.'
 const INVALID_PASSWORD_MESSAGE = 'Password is incorrect.'
 const NOT_REGISTERED_MESSAGE = 'User is not registered. Please register first.'
 const ADMIN_NOT_REGISTERED_MESSAGE = 'Admin is not registered. Please register first.'
+const LOGIN_TIMEOUT_MS = 20000
 
 export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole, setShowAuthLanding, onLoginSuccess }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isSubmittingLogin, setIsSubmittingLogin] = useState(false)
-  const [showSuccessAnim, setShowSuccessAnim] = useState(false)
   const [showForgot, setShowForgot] = useState(false)
   const [forgotEmail, setForgotEmail] = useState('')
   const [resetStep, setResetStep] = useState(false)
@@ -30,16 +30,19 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (showSuccessAnim || isSubmittingLogin) return
+    if (isSubmittingLogin) return
     setError('')
     if (!email || !password) {
       setError(INVALID_LOGIN_MESSAGE)
       return
     }
+    const controller = new AbortController()
+    const timeoutId = window.setTimeout(() => controller.abort(), LOGIN_TIMEOUT_MS)
     try {
       setIsSubmittingLogin(true)
       const response = await apiRequest('/api/auth/login', {
         method: 'POST',
+        signal: controller.signal,
         body: JSON.stringify({
           email,
           password,
@@ -48,19 +51,18 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
       })
 
       const { token, user } = response
-      setShowSuccessAnim(true)
-      setTimeout(() => {
-        localStorage.setItem('authToken', token)
-        localStorage.setItem('authUser', JSON.stringify(user))
-        setRole(user.role || 'user')
-        setUser(user)
-        setIsLoggedIn(true)
-        onLoginSuccess?.(user)
-        toast.success(user.role === 'admin' ? 'Logged in as admin' : 'Login successful')
-        setShowSuccessAnim(false)
-        setIsSubmittingLogin(false)
-      }, 2000)
+      localStorage.setItem('authToken', token)
+      localStorage.setItem('authUser', JSON.stringify(user))
+      setRole(user.role || 'user')
+      setUser(user)
+      setIsLoggedIn(true)
+      onLoginSuccess?.(user)
+      toast.success(user.role === 'admin' ? 'Logged in as admin' : 'Login successful')
     } catch (err) {
+      if (err.name === 'AbortError') {
+        setError('Login is taking too long. Please check the backend connection and try again.')
+        return
+      }
       const message = String(err.message || '').toLowerCase()
       if (message.includes('not registered') || message.includes('register first')) {
         setError(isAdminMode ? ADMIN_NOT_REGISTERED_MESSAGE : NOT_REGISTERED_MESSAGE)
@@ -80,6 +82,7 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
       }
       setError(INVALID_LOGIN_MESSAGE)
     } finally {
+      window.clearTimeout(timeoutId)
       setIsSubmittingLogin(false)
     }
   }
@@ -145,12 +148,6 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
 
   return (
     <div className="auth-page login-page">
-      {showSuccessAnim ? (
-        <div className="login-success-overlay" aria-live="polite">
-          <lottie-player src="/login-success.json" background="transparent" speed="1" loop autoplay />
-          <p className="login-success-text">Login successful</p>
-        </div>
-      ) : null}
       <div className={`login-container ${isAdminMode ? 'admin-mode' : 'user-mode'}`}>
         <div className="login-header">
           <h2>{isAdminMode ? 'Admin Login' : 'User Login'}</h2>
@@ -169,7 +166,7 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
             <input type="text" placeholder={isAdminMode ? 'Admin Username or Email' : 'Username or Email'} value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {error && <p className="error">{error}</p>}
-            <button type="submit" disabled={showSuccessAnim || isSubmittingLogin}>
+            <button type="submit" disabled={isSubmittingLogin}>
               {isSubmittingLogin ? (
                 <span className="login-btn-loading">
                   <span className="login-spinner" aria-hidden="true" />

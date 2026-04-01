@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { Admin } from '../models/Admin.js'
 import { User } from '../models/User.js'
 import { createToken } from '../utils/token.js'
-import { serializeUser } from '../utils/serializers.js'
+import { serializeAuthUser, serializeUser } from '../utils/serializers.js'
 import { requireAuth } from '../middleware/auth.js'
 import { env } from '../config/env.js'
 import { createDefaultUsername, ensureUniqueUsername, isUsernameTaken, normalizeUsername } from '../utils/accounts.js'
@@ -125,11 +125,13 @@ router.post('/login', async (req, res) => {
     })
     user.loginHistory = user.loginHistory.slice(0, 10)
   }
-  await user.save()
+  user.save().catch((error) => {
+    console.error('Failed to persist login activity', error)
+  })
 
   return res.json({
     token: createToken(user),
-    user: serializeUser(user),
+    user: serializeAuthUser(user),
   })
 })
 

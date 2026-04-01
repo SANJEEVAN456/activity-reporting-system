@@ -20,6 +20,20 @@ export function serializeUser(user) {
   }
 }
 
+export function serializeAuthUser(user) {
+  return {
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    username: user.username || '',
+    profilePicture: user.profilePicture || '',
+    role: user.role,
+    active: user.active,
+    joinedAt: user.joinedAt,
+    createdAt: user.createdAt,
+  }
+}
+
 export function serializeReport(report) {
   const user = report.user && typeof report.user === 'object' ? report.user : null
   return {
