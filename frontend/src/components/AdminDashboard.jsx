@@ -24,6 +24,7 @@ export default function AdminDashboard({ user, setIsLoggedIn, theme, setTheme, c
   const [archivedPage, setArchivedPage] = useState(1)
   const [selectedUserFilter, setSelectedUserFilter] = useState('')
   const [selectedDateFilter, setSelectedDateFilter] = useState('')
+  const [previewImage, setPreviewImage] = useState(null)
 
   const loadDashboardData = async () => {
     try {
@@ -252,6 +253,17 @@ export default function AdminDashboard({ user, setIsLoggedIn, theme, setTheme, c
     ])
   }
 
+  const openImagePreview = (file) => {
+    setPreviewImage({
+      src: `${API_BASE_URL}${file.url}`,
+      alt: file.originalName || 'Event attachment',
+    })
+  }
+
+  const closeImagePreview = () => {
+    setPreviewImage(null)
+  }
+
   return (
     <div className="admin-page">
       <Navbar
@@ -440,13 +452,18 @@ export default function AdminDashboard({ user, setIsLoggedIn, theme, setTheme, c
                             {(r.eventAttachments || []).map((file) => (
                               <div key={file.id} className="admin-event-file">
                                 {file.mimeType?.startsWith('image/') ? (
-                                  <a href={`${API_BASE_URL}${file.url}`} target="_blank" rel="noreferrer">
+                                  <button
+                                    type="button"
+                                    className="admin-event-thumb-button"
+                                    onClick={() => openImagePreview(file)}
+                                    title="Open image preview"
+                                  >
                                     <img
                                       className="admin-event-thumb"
                                       src={`${API_BASE_URL}${file.url}`}
                                       alt={file.originalName}
                                     />
-                                  </a>
+                                  </button>
                                 ) : (
                                   <a className="admin-event-file-link" href={`${API_BASE_URL}${file.url}`} target="_blank" rel="noreferrer">
                                     {file.originalName}
@@ -625,6 +642,26 @@ export default function AdminDashboard({ user, setIsLoggedIn, theme, setTheme, c
           </div>
         </>
       )}
+      {previewImage ? (
+        <div className="admin-image-preview-overlay" role="dialog" aria-modal="true" onClick={closeImagePreview}>
+          <div className="admin-image-preview-dialog" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="admin-image-preview-close"
+              onClick={closeImagePreview}
+              aria-label="Close image preview"
+            >
+              x
+            </button>
+            <img
+              className="admin-image-preview-full"
+              src={previewImage.src}
+              alt={previewImage.alt}
+            />
+            <div className="admin-image-preview-name">{previewImage.alt}</div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -744,6 +744,13 @@
   align-items: center;
 }
 
+.admin-event-thumb-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+}
+
 .admin-event-thumb {
   width: 84px;
   height: 64px;
@@ -762,6 +769,55 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.admin-image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1200;
+}
+
+.admin-image-preview-dialog {
+  max-width: min(92vw, 980px);
+  max-height: 92vh;
+  background: var(--surface);
+  border: 1px solid rgba(var(--accent-rgb), 0.24);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 24px 48px rgba(var(--ink-rgb), 0.3);
+  display: grid;
+  gap: 12px;
+}
+
+.admin-image-preview-close {
+  justify-self: end;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  background: var(--surface-alt);
+  color: var(--admin-ink);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-image-preview-full {
+  max-width: 100%;
+  max-height: calc(92vh - 120px);
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+.admin-image-preview-name {
+  color: var(--admin-subtle);
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
 }
 
 .admin-report-comment {

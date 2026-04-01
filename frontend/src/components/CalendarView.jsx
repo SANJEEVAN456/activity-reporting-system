@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import '../styles/calendar.css'
+import { API_BASE_URL } from '../utils/api'
 
 const buildKey = (date) => {
   if (!date) return ''
@@ -169,6 +170,32 @@ export default function CalendarView({
       <div className="calendar-detail-meta">{renderMetaLine(item)}</div>
       {item.reportType === 'event' ? (
         <div className="calendar-detail-meta">Admin Status | {getAdminStatusLabel(item)}</div>
+      ) : null}
+      {item.reportType === 'event' && (item.eventAttachments || []).length > 0 ? (
+        <div className="calendar-detail-files">
+          {item.eventAttachments.map((file) => (
+            <div key={file.id} className="calendar-detail-file">
+              {file.mimeType?.startsWith('image/') ? (
+                <a href={`${API_BASE_URL}${file.url}`} target="_blank" rel="noreferrer">
+                  <img
+                    className="calendar-detail-thumb"
+                    src={`${API_BASE_URL}${file.url}`}
+                    alt={file.originalName}
+                  />
+                </a>
+              ) : (
+                <a
+                  className="calendar-detail-file-link"
+                  href={`${API_BASE_URL}${file.url}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {file.originalName}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
       ) : null}
       {item.adminComment ? <div className="calendar-detail-desc">Admin: {item.adminComment}</div> : null}
       {item.reviewSuggestion ? <div className="calendar-detail-desc">Suggestion: {item.reviewSuggestion}</div> : null}

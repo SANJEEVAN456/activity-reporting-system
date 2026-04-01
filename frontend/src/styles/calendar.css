@@ -305,6 +305,38 @@
   font-size: 0.9rem;
 }
 
+.calendar-detail-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.calendar-detail-file {
+  display: inline-flex;
+  align-items: center;
+}
+
+.calendar-detail-thumb {
+  width: 88px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 6px 14px rgba(var(--ink-rgb), 0.12);
+}
+
+.calendar-detail-file-link {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
 .calendar-pagination {
   display: flex;
   align-items: center;
