@@ -10,6 +10,13 @@ function getTodayDateString() {
   return `${year}-${month}-${day}`
 }
 
+function getEventDefaultDate(currentDate, today) {
+  if (currentDate && currentDate <= today) {
+    return currentDate
+  }
+  return today
+}
+
 export default function UserBoard({ addReport, currentUser }) {
   const [reportType, setReportType] = useState('activity')
   const [activity, setActivity] = useState('')
@@ -23,7 +30,7 @@ export default function UserBoard({ addReport, currentUser }) {
 
   useEffect(() => {
     if (reportType === 'event') {
-      setDate(today)
+      setDate((currentDate) => getEventDefaultDate(currentDate, today))
       return
     }
 
@@ -37,7 +44,11 @@ export default function UserBoard({ addReport, currentUser }) {
 
   const handleDateChange = (value) => {
     if (reportType === 'event') {
-      setDate(today)
+      if (value && value > today) {
+        setDate(today)
+        return
+      }
+      setDate(value)
       return
     }
     if (value && value < today) {
@@ -55,8 +66,8 @@ export default function UserBoard({ addReport, currentUser }) {
       return
     }
     if (reportType === 'event') {
-      if (date !== today) {
-        toast.error('Events can only be created for today.')
+      if (date > today) {
+        toast.error('Events cannot be created for a future date.')
         return
       }
       if (!eventName.trim()) {
@@ -170,9 +181,8 @@ export default function UserBoard({ addReport, currentUser }) {
         <input
           type="date"
           value={date}
-          min={today}
+          min={reportType === 'activity' ? today : undefined}
           max={reportType === 'event' ? today : undefined}
-          readOnly={reportType === 'event'}
           onChange={(e) => handleDateChange(e.target.value)}
         />
         {reportType === 'activity' ? (
