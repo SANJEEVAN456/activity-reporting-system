@@ -87,6 +87,11 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+.login-container button:disabled {
+  opacity: 0.88;
+  cursor: not-allowed;
+}
+
 .login-container button:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.22);
@@ -259,4 +264,29 @@
   width: 220px;
   height: 220px;
   display: block;
+}
+
+.login-btn-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.login-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.32);
+  border-top-color: #ffffff;
+  animation: loginSpin 0.8s linear infinite;
+}
+
+@keyframes loginSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

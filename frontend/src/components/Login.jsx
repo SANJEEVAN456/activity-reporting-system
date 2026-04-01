@@ -13,6 +13,7 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isSubmittingLogin, setIsSubmittingLogin] = useState(false)
   const [showSuccessAnim, setShowSuccessAnim] = useState(false)
   const [showForgot, setShowForgot] = useState(false)
   const [forgotEmail, setForgotEmail] = useState('')
@@ -29,13 +30,14 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (showSuccessAnim) return
+    if (showSuccessAnim || isSubmittingLogin) return
     setError('')
     if (!email || !password) {
       setError(INVALID_LOGIN_MESSAGE)
       return
     }
     try {
+      setIsSubmittingLogin(true)
       const response = await apiRequest('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({
@@ -56,6 +58,7 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
         onLoginSuccess?.(user)
         toast.success(user.role === 'admin' ? 'Logged in as admin' : 'Login successful')
         setShowSuccessAnim(false)
+        setIsSubmittingLogin(false)
       }, 2000)
     } catch (err) {
       const message = String(err.message || '').toLowerCase()
@@ -76,6 +79,8 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
         return
       }
       setError(INVALID_LOGIN_MESSAGE)
+    } finally {
+      setIsSubmittingLogin(false)
     }
   }
 
@@ -164,7 +169,16 @@ export default function Login({ setIsLoggedIn, setUser, setShowRegister, setRole
             <input type="text" placeholder={isAdminMode ? 'Admin Username or Email' : 'Username or Email'} value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {error && <p className="error">{error}</p>}
-            <button type="submit" disabled={showSuccessAnim}>Login</button>
+            <button type="submit" disabled={showSuccessAnim || isSubmittingLogin}>
+              {isSubmittingLogin ? (
+                <span className="login-btn-loading">
+                  <span className="login-spinner" aria-hidden="true" />
+                  <span>Signing in...</span>
+                </span>
+              ) : (
+                'Login'
+              )}
+            </button>
           </form>
         ) : (
           <form onSubmit={resetStep ? handleResetPassword : handleForgotSubmit}>
