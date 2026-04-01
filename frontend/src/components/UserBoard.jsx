@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 import '../styles/report.css'
 
@@ -21,8 +21,26 @@ export default function UserBoard({ addReport, currentUser }) {
   const userId = currentUser?.email || currentUser?.name || ''
   const today = getTodayDateString()
 
+  useEffect(() => {
+    if (reportType === 'event') {
+      setDate(today)
+      return
+    }
+
+    setDate((currentDate) => {
+      if (currentDate && currentDate < today) {
+        return today
+      }
+      return currentDate
+    })
+  }, [reportType, today])
+
   const handleDateChange = (value) => {
-    if (reportType === 'activity' && value && value < today) {
+    if (reportType === 'event') {
+      setDate(today)
+      return
+    }
+    if (value && value < today) {
       setDate(today)
       return
     }
@@ -37,6 +55,10 @@ export default function UserBoard({ addReport, currentUser }) {
       return
     }
     if (reportType === 'event') {
+      if (date !== today) {
+        toast.error('Events can only be created for today.')
+        return
+      }
       if (!eventName.trim()) {
         toast.error('Enter an event name.')
         return
@@ -148,7 +170,9 @@ export default function UserBoard({ addReport, currentUser }) {
         <input
           type="date"
           value={date}
-          min={reportType === 'activity' ? today : undefined}
+          min={today}
+          max={reportType === 'event' ? today : undefined}
+          readOnly={reportType === 'event'}
           onChange={(e) => handleDateChange(e.target.value)}
         />
         {reportType === 'activity' ? (

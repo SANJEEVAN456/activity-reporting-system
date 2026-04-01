@@ -1,0 +1,361 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Activity System Evaluator",
+  "dateExported": "2026-04-01T00:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "_id": "fld-health",
+      "name": "1. Health"
+    },
+    {
+      "_id": "fld-auth",
+      "name": "2. Auth"
+    },
+    {
+      "_id": "fld-user",
+      "name": "3. User Reports"
+    },
+    {
+      "_id": "fld-admin",
+      "name": "4. Admin Review"
+    }
+  ],
+  "requests": [
+    {
+      "_id": "req-health",
+      "containerId": "fld-health",
+      "name": "Health Check",
+      "url": "{{baseUrl}}/api/health",
+      "method": "GET",
+      "sortNum": 10000,
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "req-register-user",
+      "containerId": "fld-auth",
+      "name": "Register User",
+      "url": "{{baseUrl}}/api/auth/register",
+      "method": "POST",
+      "sortNum": 20000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Evaluator User\",\n  \"email\": \"{{userEmail}}\",\n  \"username\": \"{{username}}\",\n  \"password\": \"{{userPassword}}\",\n  \"role\": \"user\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-login-user",
+      "containerId": "fld-auth",
+      "name": "Login User",
+      "url": "{{baseUrl}}/api/auth/login",
+      "method": "POST",
+      "sortNum": 21000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\",\n  \"role\": \"user\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-login-admin",
+      "containerId": "fld-auth",
+      "name": "Login Admin",
+      "url": "{{baseUrl}}/api/auth/login",
+      "method": "POST",
+      "sortNum": 22000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"role\": \"admin\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-me-user",
+      "containerId": "fld-auth",
+      "name": "Get Current User",
+      "url": "{{baseUrl}}/api/auth/me",
+      "method": "GET",
+      "sortNum": 23000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "req-create-activity",
+      "containerId": "fld-user",
+      "name": "Create Activity Report",
+      "url": "{{baseUrl}}/api/reports",
+      "method": "POST",
+      "sortNum": 30000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"date\": \"{{today}}\",\n  \"activity\": \"UI Review Meeting\",\n  \"duration\": 2,\n  \"description\": \"Reviewed UI responsiveness and dashboard flow.\",\n  \"upcoming\": false,\n  \"status\": \"pending\",\n  \"reportType\": \"activity\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-create-event",
+      "containerId": "fld-user",
+      "name": "Create Event Report",
+      "url": "{{baseUrl}}/api/reports",
+      "method": "POST",
+      "sortNum": 31000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"date\": \"{{today}}\",\n  \"eventName\": \"Project Evaluation Demo\",\n  \"description\": \"Event report with attachment support.\",\n  \"reportType\": \"event\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-list-reports",
+      "containerId": "fld-user",
+      "name": "List User Reports",
+      "url": "{{baseUrl}}/api/reports",
+      "method": "GET",
+      "sortNum": 32000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "req-filter-reports",
+      "containerId": "fld-user",
+      "name": "Filter Reports",
+      "url": "{{baseUrl}}/api/reports",
+      "method": "GET",
+      "sortNum": 33000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "status",
+          "value": "completed"
+        },
+        {
+          "name": "activity",
+          "value": "UI"
+        },
+        {
+          "name": "dateFrom",
+          "value": "{{today}}"
+        },
+        {
+          "name": "dateTo",
+          "value": "{{today}}"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "req-update-report",
+      "containerId": "fld-user",
+      "name": "Mark Report Completed",
+      "url": "{{baseUrl}}/api/reports/{{reportId}}",
+      "method": "PATCH",
+      "sortNum": 34000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"status\": \"completed\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-submit-report",
+      "containerId": "fld-user",
+      "name": "Submit Report For Review",
+      "url": "{{baseUrl}}/api/reports/{{reportId}}",
+      "method": "PATCH",
+      "sortNum": 35000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"submitted\": true,\n  \"submittedForReview\": true,\n  \"reviewStatus\": \"pending\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-upload-attachment",
+      "containerId": "fld-user",
+      "name": "Upload Event Attachment",
+      "url": "{{baseUrl}}/api/reports/{{eventReportId}}/attachments",
+      "method": "POST",
+      "sortNum": 36000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{userToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "formdata",
+        "form": [
+          {
+            "name": "file",
+            "type": "file",
+            "value": ""
+          }
+        ]
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-admin-stats",
+      "containerId": "fld-admin",
+      "name": "Admin Dashboard Stats",
+      "url": "{{baseUrl}}/api/admin/stats",
+      "method": "GET",
+      "sortNum": 40000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{adminToken}}"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "req-admin-users",
+      "containerId": "fld-admin",
+      "name": "Admin List Users",
+      "url": "{{baseUrl}}/api/admin/users",
+      "method": "GET",
+      "sortNum": 41000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{adminToken}}"
+        }
+      ],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "req-admin-review",
+      "containerId": "fld-admin",
+      "name": "Admin Approve Report",
+      "url": "{{baseUrl}}/api/admin/reports/{{reportId}}/review",
+      "method": "PATCH",
+      "sortNum": 42000,
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{adminToken}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"decision\": \"approved\",\n  \"adminComment\": \"Validated by evaluator demo.\",\n  \"reviewSuggestion\": \"Keep attaching supporting files for event reports.\"\n}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "req-admin-reports-pending",
+      "containerId": "fld-admin",
+      "name": "Admin Pending Reports",
+      "url": "{{baseUrl}}/api/admin/reports",
+      "method": "GET",
+      "sortNum": 43000,
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{adminToken}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "status",
+          "value": "pending"
+        }
+      ],
+      "tests": []
+    }
+  ]
+}

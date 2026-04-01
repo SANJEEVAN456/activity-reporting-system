@@ -1,0 +1,52 @@
+{
+  "client": "Thunder Client",
+  "environmentName": "Activity System Local",
+  "dateExported": "2026-04-01T00:00:00.000Z",
+  "version": "1.0",
+  "variables": [
+    {
+      "name": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "name": "today",
+      "value": "2026-04-01"
+    },
+    {
+      "name": "userEmail",
+      "value": "evaluator.user@example.com"
+    },
+    {
+      "name": "username",
+      "value": "evaluatoruser"
+    },
+    {
+      "name": "userPassword",
+      "value": "User@123"
+    },
+    {
+      "name": "adminEmail",
+      "value": "replace-with-admin-email"
+    },
+    {
+      "name": "adminPassword",
+      "value": "replace-with-admin-password"
+    },
+    {
+      "name": "userToken",
+      "value": "paste-user-token-here"
+    },
+    {
+      "name": "adminToken",
+      "value": "paste-admin-token-here"
+    },
+    {
+      "name": "reportId",
+      "value": "paste-report-id-here"
+    },
+    {
+      "name": "eventReportId",
+      "value": "paste-event-report-id-here"
+    }
+  ]
+}

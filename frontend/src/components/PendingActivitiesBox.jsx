@@ -25,16 +25,32 @@ function formatActivityDateTime(report) {
   return base.toLocaleString()
 }
 
+function getPendingLabel(report) {
+  if (report.reportType === 'event') {
+    if (report.reviewStatus === 'approved') return 'approved'
+    if (report.reviewStatus === 'rejected') return 'rejected'
+    if (report.submittedForReview) return 'awaiting admin review'
+    if ((report.eventAttachments || []).length > 0) return 'ready to submit'
+    return 'waiting for file upload'
+  }
+
+  return report.status || 'pending'
+}
+
 export default function PendingActivitiesBox({ reports = [] }) {
   const [page, setPage] = useState(1)
 
   const pendingReports = useMemo(() => {
     const today = getTodayDateString()
     return reports
-      .filter((report) => report.reportType !== 'event')
       .filter((report) => !report.upcoming)
-      .filter((report) => !report.deletedByAdmin && report.status !== 'deleted' && report.status !== 'completed')
-      .filter((report) => !report.date || String(report.date) >= today)
+      .filter((report) => !report.deletedByAdmin && report.status !== 'deleted')
+      .filter((report) => {
+        if (report.reportType === 'event') {
+          return report.reviewStatus !== 'approved'
+        }
+        return report.status !== 'completed' && (!report.date || String(report.date) >= today)
+      })
       .sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')))
   }, [reports])
 
@@ -63,12 +79,13 @@ export default function PendingActivitiesBox({ reports = [] }) {
           {paginatedReports.map((report) => (
             <article key={report.id} className="pending-activity-card">
               <div className="pending-activity-top">
-                <strong>{report.activity}</strong>
-                <span className={`pending-activity-status status-${String(report.status || 'pending').replace(/\s+/g, '-')}`}>
-                  {report.status || 'pending'}
+                <strong>{report.reportType === 'event' ? (report.eventName || report.activity || 'Event') : report.activity}</strong>
+                <span className={`pending-activity-status status-${String(getPendingLabel(report)).replace(/\s+/g, '-')}`}>
+                  {getPendingLabel(report)}
                 </span>
               </div>
               <div className="pending-activity-meta">
+                <span><strong>Type:</strong> {report.reportType || 'activity'}</span>
                 <span><strong>Created:</strong> {formatDateTime(report.createdAt, 'Just now')}</span>
                 <span><strong>Activity:</strong> {formatActivityDateTime(report)}</span>
               </div>

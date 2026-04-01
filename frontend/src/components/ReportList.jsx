@@ -178,8 +178,22 @@ export default function ReportList({
     .slice(0, 3)
 
   const adminStatusItems = reports
-    .filter((r) => r.reviewStatus)
-    .sort((a, b) => String(b.reviewActionAt || '').localeCompare(String(a.reviewActionAt || '')))
+    .filter((r) => r.reportType === 'event' || r.submittedForReview || r.reviewStatus)
+    .sort((a, b) => String(b.reviewActionAt || b.updatedAt || b.createdAt || '').localeCompare(String(a.reviewActionAt || a.updatedAt || a.createdAt || '')))
+
+  const getAdminStatusLabel = (report) => {
+    if (report.reviewStatus === 'approved') return 'approved'
+    if (report.reviewStatus === 'rejected') return 'rejected'
+    if (report.submittedForReview) return 'pending review'
+    if (report.reportType === 'event') {
+      return (report.eventAttachments || []).length > 0 ? 'waiting for approval' : 'awaiting documents'
+    }
+    return 'in progress'
+  }
+
+  const getAdminStatusTimestamp = (report) => (
+    report.reviewActionAt || report.updatedAt || report.createdAt || null
+  )
 
   const showMain = variant === 'all' || variant === 'main'
   const showSummary = variant === 'all' || variant === 'summary'
@@ -631,13 +645,16 @@ export default function ReportList({
                           <span className="report-date">{r.date}</span>
                           <span className="report-activity">{activityLabel}</span>
                           {r.duration ? <span className="report-duration">{r.duration} hrs</span> : null}
-                          <span className="report-status">{r.reviewStatus}</span>
+                          <span className="report-status">{getAdminStatusLabel(r)}</span>
                         </div>
                           )
                         })()}
                         <div className="report-completed-at">
-                          Updated: {formatDateTime(r.reviewActionAt)}
+                          Updated: {formatDateTime(getAdminStatusTimestamp(r))}
                         </div>
+                        {r.adminComment ? (
+                          <div className="report-admin-comment">Admin: {r.adminComment}</div>
+                        ) : null}
                         {r.reviewSuggestion ? (
                           <div className="report-review-suggestion">Suggestion: {r.reviewSuggestion}</div>
                         ) : null}
