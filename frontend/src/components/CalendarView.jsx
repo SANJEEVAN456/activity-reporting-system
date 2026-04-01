@@ -55,6 +55,22 @@ export default function CalendarView({
     return 'status-pending'
   }
 
+  const getAdminStatusLabel = (item) => {
+    if (item.reviewStatus === 'approved') return 'approved'
+    if (item.reviewStatus === 'rejected') return 'rejected'
+    if (item.submittedForReview) return 'pending review'
+    if (item.reportType === 'event') {
+      return (item.eventAttachments || []).length > 0 ? 'ready for admin review' : 'awaiting documents'
+    }
+    return item.status || 'pending'
+  }
+
+  const renderMetaLine = (item) => {
+    const baseLabel = item.reportType === 'event' ? 'Event' : `${item.duration || 0} hrs`
+    const stateLabel = item.upcoming ? 'upcoming' : (item.status || 'pending')
+    return `${baseLabel} | ${stateLabel}`
+  }
+
   const itemsByDate = useMemo(() => {
     const map = new Map()
     reports.forEach((report) => {
@@ -142,6 +158,24 @@ export default function CalendarView({
     onClearFilters?.()
   }
 
+  const renderDetailItem = (item) => (
+    <li
+      key={item.id}
+      className={`${item.reportType === 'event' ? 'event' : 'activity'} ${getStatusClass(item)}`.trim()}
+    >
+      <div className="calendar-detail-title">
+        {item.reportType === 'event' ? (item.eventName || item.activity || 'Event') : item.activity}
+      </div>
+      <div className="calendar-detail-meta">{renderMetaLine(item)}</div>
+      {item.reportType === 'event' ? (
+        <div className="calendar-detail-meta">Admin Status | {getAdminStatusLabel(item)}</div>
+      ) : null}
+      {item.adminComment ? <div className="calendar-detail-desc">Admin: {item.adminComment}</div> : null}
+      {item.reviewSuggestion ? <div className="calendar-detail-desc">Suggestion: {item.reviewSuggestion}</div> : null}
+      {item.description ? <div className="calendar-detail-desc">{item.description}</div> : null}
+    </li>
+  )
+
   return (
     <div className={`calendar-card ${className}`.trim()}>
       <div className="calendar-header">
@@ -228,40 +262,14 @@ export default function CalendarView({
                 <div key={userName} className="calendar-user-group">
                   <div className="calendar-user-name">{userName}</div>
                   <ul className="calendar-details-list">
-                    {items.map((item) => (
-                      <li
-                        key={item.id}
-                        className={`${item.reportType === 'event' ? 'event' : 'activity'} ${getStatusClass(item)}`.trim()}
-                      >
-                        <div className="calendar-detail-title">
-                          {item.reportType === 'event' ? (item.eventName || item.activity || 'Event') : item.activity}
-                        </div>
-                        <div className="calendar-detail-meta">
-                          {item.reportType === 'event' ? 'Event' : `${item.duration || 0} hrs`} {' • '} {item.upcoming ? 'upcoming' : (item.status || 'pending')}
-                        </div>
-                        {item.description ? <div className="calendar-detail-desc">{item.description}</div> : null}
-                      </li>
-                    ))}
+                    {items.map((item) => renderDetailItem(item))}
                   </ul>
                 </div>
               ))}
             </div>
           ) : (
             <ul className="calendar-details-list">
-              {paginatedSelectedItems.map((item) => (
-                <li
-                  key={item.id}
-                  className={`${item.reportType === 'event' ? 'event' : 'activity'} ${getStatusClass(item)}`.trim()}
-                >
-                  <div className="calendar-detail-title">
-                    {item.reportType === 'event' ? (item.eventName || item.activity || 'Event') : item.activity}
-                  </div>
-                  <div className="calendar-detail-meta">
-                    {item.reportType === 'event' ? 'Event' : `${item.duration || 0} hrs`} {' • '} {item.upcoming ? 'upcoming' : (item.status || 'pending')}
-                  </div>
-                  {item.description ? <div className="calendar-detail-desc">{item.description}</div> : null}
-                </li>
-              ))}
+              {paginatedSelectedItems.map((item) => renderDetailItem(item))}
             </ul>
           )}
           {selectedItems.length > detailsPerPage ? (
