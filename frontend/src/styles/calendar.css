@@ -377,3 +377,82 @@
     min-height: 70px;
   }
 }
+
+@media (max-width: 700px) {
+  .calendar-header,
+  .calendar-details-header,
+  .calendar-pagination {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .calendar-controls,
+  .calendar-details-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-cell {
+    min-height: 52px;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .calendar-weekdays span {
+    font-size: 0.7rem;
+  }
+
+  .calendar-month {
+    text-align: center;
+  }
+
+  .calendar-day {
+    justify-content: center;
+  }
+
+  .calendar-day span:first-child {
+    font-size: 0.78rem;
+  }
+
+  .calendar-cell:not(.empty) .calendar-day span:first-child {
+    padding: 1px 5px;
+    border-radius: 6px;
+  }
+
+  .calendar-count {
+    justify-self: center;
+    font-size: 0.68rem;
+    padding: 1px 5px;
+  }
+
+  .calendar-items,
+  .calendar-indicators {
+    display: none;
+  }
+
+  .calendar-details {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .calendar-details-list li {
+    padding: 10px;
+  }
+
+  .calendar-detail-file,
+  .calendar-detail-file-link {
+    width: 100%;
+  }
+
+  .calendar-detail-file-link {
+    overflow-wrap: anywhere;
+  }
+
+  .calendar-pagination button {
+    width: 100%;
+  }
+}

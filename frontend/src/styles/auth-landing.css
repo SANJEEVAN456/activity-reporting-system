@@ -64,4 +64,17 @@
   border: 1px solid rgba(var(--accent-rgb), 0.35);
 }
 
+@media (max-width: 480px) {
+  .auth-landing {
+    align-items: flex-start;
+    padding: 18px 12px;
+    background-attachment: scroll;
+  }
+
+  .auth-landing-card {
+    width: 100%;
+    padding: 22px 16px;
+    border-radius: 12px;
+  }
+}
 

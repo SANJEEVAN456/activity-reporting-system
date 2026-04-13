@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 import '../styles/report.css'
 
@@ -17,6 +17,13 @@ function getEventDefaultDate(currentDate, today) {
   return today
 }
 
+function getActivityDefaultDate(currentDate, today) {
+  if (currentDate && currentDate < today) {
+    return today
+  }
+  return currentDate
+}
+
 export default function UserBoard({ addReport, currentUser }) {
   const [reportType, setReportType] = useState('activity')
   const [activity, setActivity] = useState('')
@@ -28,19 +35,14 @@ export default function UserBoard({ addReport, currentUser }) {
   const userId = currentUser?.email || currentUser?.name || ''
   const today = getTodayDateString()
 
-  useEffect(() => {
-    if (reportType === 'event') {
-      setDate((currentDate) => getEventDefaultDate(currentDate, today))
-      return
-    }
-
-    setDate((currentDate) => {
-      if (currentDate && currentDate < today) {
-        return today
-      }
-      return currentDate
-    })
-  }, [reportType, today])
+  const handleReportTypeChange = (value) => {
+    setReportType(value)
+    setDate((currentDate) => (
+      value === 'event'
+        ? getEventDefaultDate(currentDate, today)
+        : getActivityDefaultDate(currentDate, today)
+    ))
+  }
 
   const handleDateChange = (value) => {
     if (reportType === 'event') {
@@ -149,7 +151,7 @@ export default function UserBoard({ addReport, currentUser }) {
           value={userId}
           readOnly
         />
-        <select value={reportType} onChange={(e) => setReportType(e.target.value)}>
+        <select value={reportType} onChange={(e) => handleReportTypeChange(e.target.value)}>
           <option value="activity">Activity</option>
           <option value="event">Event</option>
         </select>

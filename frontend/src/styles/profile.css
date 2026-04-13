@@ -379,6 +379,28 @@
 }
 
 @media (max-width: 720px) {
+  .profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .profile-img {
+    margin-right: 0;
+  }
+
+  .profile-page {
+    min-height: auto;
+    padding: 16px 0;
+  }
+
+  .profile-page-card,
+  .admin-profile-shell {
+    width: min(100%, calc(100vw - 20px));
+    padding: 16px;
+    border-radius: 12px;
+  }
+
   .profile-stats {
     grid-template-columns: 1fr;
   }
@@ -390,6 +412,30 @@
   .admin-profile-hero {
     flex-direction: column;
     align-items: flex-start;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .admin-profile-avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .admin-profile-toggle {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profile-actions,
+  .admin-profile-actions,
+  .user-profile-actions {
+    align-items: stretch;
+  }
+
+  .profile-actions button,
+  .admin-profile-btn,
+  .user-profile-actions button {
+    width: 100%;
   }
 }
 

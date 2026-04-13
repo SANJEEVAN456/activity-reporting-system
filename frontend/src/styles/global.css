@@ -11,12 +11,24 @@
   color-scheme: light dark;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   color: var(--text-primary);
   position: relative;
   min-height: 100vh;
+  min-width: 320px;
+  overflow-x: hidden;
   background:
     radial-gradient(1200px 600px at 12% 10%, rgba(var(--bg-glow-1), 0.38), transparent 60%),
     radial-gradient(900px 520px at 88% 12%, rgba(var(--bg-glow-2), 0.26), transparent 60%),
@@ -29,6 +41,9 @@ body {
 #root {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  min-width: 0;
 }
 
 h2, h3 {
@@ -56,6 +71,42 @@ input {
   margin: 6px 0;
   border: 1px solid rgba(var(--ink-rgb), 0.2);
   border-radius: 4px;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  max-width: 100%;
+}
+
+button {
+  min-height: 40px;
+  touch-action: manipulation;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
+}
+
+.Toastify__toast-container {
+  width: min(360px, calc(100vw - 24px));
+}
+
+@media (max-width: 700px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .Toastify__toast-container {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+  }
 }
 
 /* Mobile (up to 600px) */

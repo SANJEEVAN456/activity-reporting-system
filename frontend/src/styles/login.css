@@ -290,3 +290,36 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 480px) {
+  .auth-page {
+    align-items: flex-start;
+    padding: 18px 12px;
+    background-attachment: scroll;
+  }
+
+  .login-container {
+    width: 100%;
+    padding: 18px 16px;
+  }
+
+  .login-container input,
+  .login-container button,
+  .admin-welcome {
+    width: 100%;
+  }
+
+  .login-role-toggle {
+    gap: 8px;
+  }
+
+  .role-card {
+    padding: 14px 8px;
+    border-radius: 10px;
+  }
+
+  .login-success-overlay lottie-player {
+    width: 170px;
+    height: 170px;
+  }
+}

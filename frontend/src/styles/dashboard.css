@@ -26,22 +26,22 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  width: min(1200px, 92vw);
+  width: min(1200px, calc(100vw - 128px));
   margin: 0 auto 30px;
 }
 
 .page-title {
   margin: 24px auto 0;
-  width: min(1200px, 92vw);
+  width: min(1200px, calc(100vw - 128px));
   font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0;
   color: var(--text-primary);
   text-align: center;
 }
 
 .dashboard-greeting {
-  width: min(1200px, 92vw);
+  width: min(1200px, calc(100vw - 128px));
   margin: 12px auto 0;
   color: var(--text-primary);
   padding: 20px 24px;
@@ -78,17 +78,17 @@
   border: 1px solid rgba(var(--accent-rgb), 0.18);
   font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .dashboard-greeting-title {
   margin: 12px 0 6px;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: 2.2rem;
   line-height: 1.08;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 .dashboard-greeting-title span {
@@ -304,16 +304,67 @@
 
 @media (max-width: 700px) {
   .dashboard {
-    padding-left: 72px;
+    padding-left: 0;
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
+    background-attachment: scroll;
+  }
+
+  .dashboard-content,
+  .page-title,
+  .dashboard-greeting {
+    width: min(100%, calc(100vw - 20px));
+  }
+
+  .dashboard-content {
+    padding: 12px 0 18px;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .page-title {
+    margin-top: 18px;
+    font-size: 1.35rem;
   }
 
   .dashboard-greeting {
+    margin-top: 10px;
     padding: 18px 18px 20px;
     border-radius: 16px;
   }
 
+  .dashboard-greeting-title {
+    font-size: 1.65rem;
+    line-height: 1.16;
+    overflow-wrap: anywhere;
+  }
+
+  .dashboard-greeting-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .pending-activities-box {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .pending-activities-header,
+  .pending-activity-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .pending-activity-meta {
     grid-template-columns: 1fr;
+  }
+
+  .missed-activity-actions,
+  .section-pagination {
+    justify-content: stretch;
+  }
+
+  .missed-activity-btn,
+  .section-page-btn {
+    width: 100%;
   }
 }
 

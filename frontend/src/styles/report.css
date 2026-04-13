@@ -916,20 +916,160 @@
     grid-template-columns: 1fr;
     align-items: start;
   }
+
+  .report-box.recent-box .report-meta,
+  .report-box.admin-status-box .report-meta {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 700px) {
+  .report-form,
+  .user-board,
+  .report-list,
+  .report-filters,
+  .history-box {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .report-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .report-header-metrics {
+    width: 100%;
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .report-count {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .report-form form,
+  .user-board form,
+  .filters,
+  .edit-row {
+    justify-items: stretch;
+  }
+
+  .report-form input,
+  .report-form select,
+  .report-form button,
+  .user-board input,
+  .user-board select,
+  .user-board button,
+  .edit-row input,
+  .filters input,
+  .submit-report-btn,
+  .filter-search-btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .report-view-toggle {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-inline: 0;
+  }
+
+  .report-view-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .report-section-header {
+    align-items: flex-start;
+    padding-inline: 0;
+  }
+
+  .report-numbered-list .report-item {
+    padding-left: 42px;
+  }
+
+  .report-item {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .report-item-number {
+    left: 10px;
+  }
+
+  .report-date,
+  .report-activity,
+  .report-duration,
+  .report-status,
+  .report-user,
+  .report-description,
+  .report-admin-comment,
+  .report-review-status,
+  .report-review-suggestion,
+  .report-deleted-note {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .action-row,
+  .history-toggle,
+  .event-file-item,
+  .event-upload-actions {
+    align-items: stretch;
+  }
+
+  .action-row button,
+  .history-toggle button,
+  .event-file-item a,
+  .event-file-item button {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .report-upcoming-move {
+    align-items: flex-start;
+  }
+
+  .event-attachments {
+    padding: 10px;
+  }
+
   .history-table {
-    min-width: 0;
+    min-width: 720px;
   }
 
   .history-table th,
   .history-table td {
     font-size: 0.85rem;
+    padding: 9px 8px;
   }
 
   .history-table-wrap {
     max-height: 240px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-results-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-results-table {
+    min-width: 620px;
+  }
+
+  .filter-results-row {
+    grid-template-columns: 96px minmax(130px, 1fr) 72px 96px 120px;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+
+  .admin-status-scroll {
+    max-height: 300px;
   }
 }
 
