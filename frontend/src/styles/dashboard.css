@@ -264,6 +264,23 @@
   min-width: 0;
 }
 
+.dashboard-row .report-view-toggle {
+  grid-template-columns: 1fr;
+}
+
+.dashboard-row .report-meta,
+.dashboard-row .report-box.recent-box .report-meta,
+.dashboard-row .report-box.admin-status-box .report-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dashboard-row .report-meta > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .section-pagination {
   display: flex;
   align-items: center;
@@ -360,6 +377,12 @@
   }
 
   .pending-activity-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-row .report-meta,
+  .dashboard-row .report-box.recent-box .report-meta,
+  .dashboard-row .report-box.admin-status-box .report-meta {
     grid-template-columns: 1fr;
   }
 

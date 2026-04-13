@@ -606,6 +606,7 @@
 
 .report-view-card {
   width: 100%;
+  min-width: 0;
   margin: 0;
   padding: 16px 14px;
   background: var(--surface-alt);
@@ -636,6 +637,8 @@
 
 .report-view-label {
   font-size: 0.95rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .report-view-badge {
@@ -651,6 +654,7 @@
   color: var(--ink);
   font-size: 0.82rem;
   font-weight: 700;
+  flex: 0 0 auto;
 }
 
 .report-section h4 {
