@@ -378,7 +378,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .calendar-header,
   .calendar-details-header,
   .calendar-pagination {
@@ -454,5 +454,29 @@
 
   .calendar-pagination button {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-grid {
+    gap: 3px;
+  }
+
+  .calendar-cell {
+    min-height: 46px;
+    padding: 4px 2px;
+  }
+
+  .calendar-weekdays span {
+    font-size: 0.66rem;
+  }
+
+  .calendar-day span:first-child {
+    font-size: 0.74rem;
+  }
+
+  .calendar-count {
+    font-size: 0.62rem;
+    padding: 1px 4px;
   }
 }

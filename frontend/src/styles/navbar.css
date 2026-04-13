@@ -124,7 +124,7 @@
   border: 1px solid rgba(31, 41, 55, 0.12);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .navbar {
     top: auto;
     bottom: 0;

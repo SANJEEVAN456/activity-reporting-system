@@ -189,10 +189,12 @@
 .report-list-stack {
   display: grid;
   gap: 20px;
+  min-width: 0;
 }
 
 .report-box {
   width: 100%;
+  min-width: 0;
 }
 
 .report-box.recent-box {
@@ -921,9 +923,7 @@
   .report-box.admin-status-box .report-meta {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 700px) {
   .report-form,
   .user-board,
   .report-list,
@@ -1073,7 +1073,54 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (max-width: 480px) {
+  .report-form,
+  .user-board,
+  .report-list,
+  .report-filters,
+  .history-box {
+    padding: 12px;
+  }
+
+  .user-board h3,
+  .report-form h3,
+  .report-header h3 {
+    font-size: 1rem;
+  }
+
+  .report-list-stack,
+  .report-main-sections,
+  .report-user-list {
+    gap: 10px;
+  }
+
+  .report-numbered-list .report-item {
+    padding-left: 36px;
+  }
+
+  .report-item-number {
+    left: 8px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .report-view-label,
+  .report-count,
+  .empty-inline,
+  .report-completed-at {
+    font-size: 0.86rem;
+  }
+
+  .history-table {
+    min-width: 640px;
+  }
+
+  .filter-results-table {
+    min-width: 560px;
+  }
+}
+
+@media (min-width: 901px) {
   .report-form form,
   .user-board form {
     grid-template-columns: 2fr 1fr auto;

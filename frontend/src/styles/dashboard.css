@@ -109,6 +109,7 @@
 
 .dashboard-content > * {
   max-width: 100%;
+  min-width: 0;
 }
 
 .pending-activities-box {
@@ -256,6 +257,11 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
+  min-width: 0;
+}
+
+.dashboard-row > * {
+  min-width: 0;
 }
 
 .section-pagination {
@@ -295,14 +301,14 @@
   color: var(--text-muted);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
   .dashboard-row {
     grid-template-columns: 1fr 1fr;
     align-items: start;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .dashboard {
     padding-left: 0;
     padding-bottom: calc(82px + env(safe-area-inset-bottom));
@@ -365,6 +371,44 @@
   .missed-activity-btn,
   .section-page-btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-content,
+  .page-title,
+  .dashboard-greeting {
+    width: min(100%, calc(100vw - 16px));
+  }
+
+  .dashboard-content {
+    gap: 12px;
+  }
+
+  .dashboard-greeting {
+    padding: 16px 14px 18px;
+  }
+
+  .dashboard-greeting-kicker {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .dashboard-greeting-title {
+    font-size: 1.45rem;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+  }
+
+  .pending-activities-box {
+    padding: 14px;
+  }
+
+  .pending-activity-card {
+    padding: 13px;
   }
 }
 

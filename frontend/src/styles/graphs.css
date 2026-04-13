@@ -64,7 +64,7 @@ h4 {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .graphs {
     padding: 14px;
     border-radius: 12px;

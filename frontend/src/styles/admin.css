@@ -1257,7 +1257,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .admin-page {
     padding-left: 0;
     padding-bottom: calc(82px + env(safe-area-inset-bottom));
